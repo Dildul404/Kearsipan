@@ -1,7 +1,17 @@
+@import url(home.css);
+@import url(surat.css);
+
+/* lakukan hal sama jika ingin menamnah css */
+
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+
+.hidden {
+    display: none;
 }
 
 .mainContainer {
@@ -9,7 +19,7 @@
     flex-direction: row;
 }
 
-/* bagian atas jangab dirubah */
+/* bagian atas jangan dirubah */
 
 .navigasi {
     width: 15%;
