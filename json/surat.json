@@ -1,0 +1,11 @@
+[
+    {"id": 1, "judul": "surat1", "file": "surat1.html", "foto":"sesuatu.png"},
+    {"id": 2, "judul": "surat2", "file": "surat2.html", "foto":"sesuatu.png"},
+    {"id": 3, "judul": "surat3", "file": "surat3.html", "foto":"sesuatu.png"},
+    {"id": 4, "judul": "surat4", "file": "surat4.html", "foto":"sesuatu.png"},
+    {"id": 5, "judul": "surat5", "file": "surat5.html", "foto":"sesuatu.png"},
+    {"id": 6, "judul": "surat6", "file": "surat6.html", "foto":"sesuatu.png"},
+    {"id": 7, "judul": "surat7", "file": "surat7.html", "foto":"sesuatu.png"},
+    {"id": 8, "judul": "surat8", "file": "surat8.html", "foto":"sesuatu.png"},
+    {"id": 9, "judul": "surat9", "file": "surat9.html", "foto":"sesuatu.png"}
+]

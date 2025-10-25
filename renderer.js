@@ -6,51 +6,101 @@ function fetching(link) {
       document.getElementById("contentContainer").innerHTML = data;
 
       // Pasang listener setelah konten baru masuk
-      // memasukkan surat ke halaman edit
-      const editBtn = document.getElementById("BtnEdit");
-      if (editBtn) {
-          editBtn.addEventListener("click", async () => {
+      // mengambil surat dari json
 
-            // muat halaman edit
-            const editRes = await fetch("edit.html");
-            const editHtml = await editRes.text();
-            document.getElementById("contentContainer").innerHTML = editHtml;
+      async function dataJson() {
+        const res = await fetch("./json/surat.json");
+        const list = await res.json();
+        const templates = document.getElementById("kumpulanTemplate");
 
-            // baru setelah itu, muat surat
-            const suratRes = await fetch("surat-surat/surat1.html");
-            const suratHtml = await suratRes.text();
-            document.getElementById("pembungkusSurat").innerHTML = suratHtml;
-          });
-        }
+        // Jalankan semua fetch surat secara paralel
+        const promises = list.map(async surat => {
+          const file = surat.file;
+          const foto = surat.foto;
+          const id = surat.id;
 
-      // Batal btn
-      const batalBtn = document.getElementById("BtnBatal");
-      const sectionDua = document.getElementById("dua");
+          templates.innerHTML += `
+            <div class="templateItem" id="temp${id}" file="${file}">
+              <img src="${foto}" alt="" class="suratContainer">
+            </div>
+          `;
 
-      if(batalBtn) {
-        if(sectionDua) {
-          batalBtn.addEventListener("click", (e)=> {
-            sectionDua.classList.add("hidden");
-          });
-        }
+          const suratRes = await fetch(`./surat-surat/${file}`);
+          const suratData = await suratRes.text();
+          const item = document.getElementById(`temp${id}`);
+          item.innerHTML += suratData;
+        });
+
+        // Tunggu semua surat selesai dimuat
+        await Promise.all(promises);
       }
 
-      // template surat
-      let surat
-      document.querySelectorAll("#templateItem").forEach(surat => {
-        surat.addEventListener("click", e => {
-          e.preventDefault();
-          sectionDua.classList.remove("hidden");
-        });
-      });
 
+      // template surat
+
+      surat();
+
+      async function surat() {
+
+        await dataJson();
+
+        const pembungkusSurat = document.getElementById("pembungkusSurat");
+        const sectionDua = document.getElementById("dua");
+        let path;
+
+        document.querySelectorAll(".templateItem").forEach(surat => {
+          surat.addEventListener("click", e => {
+            e.preventDefault();
+            sectionDua.classList.remove("hidden");
+
+            path = surat.getAttribute("file");
+            fetch(`./surat-surat/${path}`)
+            .then(res => res.text())
+            .then(data => {
+              pembungkusSurat.innerHTML = data;
+            })
+          });
+        });
+
+        // memasukkan surat ke halaman edit
+        const editBtn = document.getElementById("BtnEdit");
+        const editSurat = document.getElementById("contentContainer");
+        if (editBtn) {
+            editBtn.addEventListener("click", async () => {
+
+              // muat halaman edit
+              const editRes = await fetch("edit.html");
+              const editHtml = await editRes.text();
+
+              editSurat.innerHTML = "";
+              editSurat.innerHTML += editHtml;
+
+              // baru setelah itu, muat surat
+              const suratRes = await fetch(`surat-surat/${path}`);
+              const suratHtml = await suratRes.text();
+              document.getElementById("pembungkusSurat").innerHTML = suratHtml;
+            });
+          }
+
+        // Batal btn
+        const batalBtn = document.getElementById("BtnBatal");
+
+        if(batalBtn) {
+          if(sectionDua) {
+            batalBtn.addEventListener("click", ()=> {
+              sectionDua.classList.add("hidden");
+            });
+          }
+        }
+          
+      }
 
     }); 
 }
 
 // berpindah halaman (halaman utama)
 let url
-document.querySelectorAll("#linkMainView").forEach(link => {
+document.querySelectorAll(".linkMainView").forEach(link => {
   link.addEventListener("click", e => {
     e.preventDefault();
     url = link.getAttribute('href');
