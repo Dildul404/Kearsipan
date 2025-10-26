@@ -1,0 +1,22 @@
+.drafContainer {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+.drafHeader {
+    padding: 20px;
+    display: flex;
+    justify-content: right;
+    gap: 30px;
+    background-color: aliceblue;
+}
+#drafItems {
+    width: 100%;
+    height: 100vh;
+    background-color: antiquewhite;
+}
+#trashItems {
+    width: 100%;
+    height: 100vh;
+    background-color: antiquewhite;
+}

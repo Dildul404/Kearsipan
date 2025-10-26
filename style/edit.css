@@ -1,0 +1,23 @@
+.editContainer {
+    display: flex;
+    height: 100vh;
+}
+.pembungkusEdit {
+    flex: 2;
+    padding: 20px;
+    background-color: aquamarine;
+    
+}
+.pembungkusPertanyaan {
+    flex: 1;
+    padding: 20px;
+    background-color: azure;
+    justify-items: center;
+}
+.pembungkusPertanyaan form input {
+    margin: 10px 0;
+}
+.btnInput {
+    display: flex;
+    justify-content: space-between;
+}

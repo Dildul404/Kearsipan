@@ -1,7 +1,9 @@
 @import url(home.css);
 @import url(surat.css);
+@import url(edit.css);
+@import url(draf&sampah.css);
 
-/* lakukan hal sama jika ingin menamnah css */
+/* lakukan hal sama jika ingin menambah css */
 
 
 * {
